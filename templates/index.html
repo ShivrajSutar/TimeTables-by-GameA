@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Timetable Generator | Modern Agency Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-vibrant min-h-screen text-slate-100 flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="border-b border-slate-800/80 backdrop-blur-md sticky top-0 z-50 bg-slate-950/60">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl gradient-btn flex items-center justify-center font-bold text-xl shadow-lg">G</div>
+                <span class="text-xl font-extrabold tracking-tight gradient-text">TimeTables by GameA</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="glass-pill px-4 py-2 rounded-full text-xs font-semibold text-slate-300 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Gemini 3.8 Flash Engine
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="max-w-7xl mx-auto px-6 pt-16 pb-12 text-center relative">
+        <div class="inline-flex items-center gap-2 glass-pill px-4 py-1.5 rounded-full text-xs font-medium text-purple-300 mb-6">
+            Academic Scheduling Platform
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+            Balanced <span class="gradient-text">Conflict-Free</span> Timetables.
+        </h1>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+            Upload your departmental loadlist and get a high-precision master timetable.
+        </p>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-6 pb-24 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <!-- Left Column: Input Form (Bento Style) -->
+        <div class="lg:col-span-5 space-y-6">
+
+            <!-- API Key Card -->
+            <div class="glass-card rounded-2xl p-6">
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Engine API Credentials</label>
+                <input type="password" id="api_key" placeholder="Enter Gemini API Key" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-purple-500 transition">
+            </div>
+
+            <!-- Excel Upload Bento Card -->
+            <div class="glass-card rounded-2xl p-6 relative overflow-hidden group">
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition"></div>
+                <h3 class="text-base font-bold text-slate-200 mb-2 flex items-center gap-2">
+                    <i data-lucide="file-spreadsheet" class="w-5 h-5 text-purple-400"></i> Workload Loadlist Upload
+                </h3>
+                <p class="text-xs text-slate-400 mb-4">Parse course allocation sheets automatically.</p>
+                <input type="file" id="excel_file" accept=".xlsx, .xls" class="hidden" onchange="uploadExcel()">
+                <label for="excel_file" class="flex flex-col items-center justify-center border-2 border-dashed border-slate-700/80 rounded-xl p-6 cursor-pointer hover:border-purple-500/80 transition bg-slate-900/40">
+                    <i data-lucide="upload-cloud" class="w-8 h-8 text-slate-400 mb-2"></i>
+                    <span class="text-xs font-semibold text-slate-300" id="upload_status">Click to upload Excel (.xlsx)</span>
+                </label>
+            </div>
+
+            <!-- Setup Form Card -->
+            <div class="glass-card rounded-2xl p-6 space-y-4">
+                <h3 class="text-base font-bold text-slate-200 mb-2 flex items-center gap-2">
+                    <i data-lucide="sliders" class="w-5 h-5 text-blue-400"></i> Schedule Parameters
+                </h3>
+
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Institution Name</label>
+                    <input type="text" id="institution" value="Department of Computer Engineering" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-2 text-xs">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Academic Year / Term</label>
+                        <input type="text" id="dept_sem" value="AY 2026-27 | Odd Sem" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-2 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Working Days</label>
+                        <input type="text" id="working_days" value="Monday, Tuesday, Wednesday, Thursday, Friday" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-2 text-xs">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Divisions / Classes</label>
+                    <input type="text" id="classes_input" value="SE AIML-A, SE AIML-B, TE AIML-A, BE AIML" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-2 text-xs">
+                </div>
+
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Daily Time Slots</label>
+                    <input type="text" id="time_slots" value="09:00-10:00, 10:00-11:00, 11:00-12:00, 12:00-01:00, 01:00-02:00 (Break), 02:00-03:00, 03:00-04:00" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-2 text-xs">
+                </div>
+
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Workload Specification Data</label>
+                    <textarea id="subjects_spec" rows="4" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl p-3 text-xs font-mono"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Rooms & Constraints</label>
+                    <textarea id="constraints" rows="3" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl p-3 text-xs">1. Long Break: 01:00-02:00. 2. Max 3 consecutive periods per faculty.</textarea>
+                </div>
+
+                <button onclick="generateSchedule()" class="w-full py-3.5 rounded-xl gradient-btn font-bold text-sm tracking-wide shadow-lg flex items-center justify-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i> Synthesize Master Schedule
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Column: Results & Interactive Output -->
+        <div class="lg:col-span-7 space-y-6">
+
+            <div class="glass-card rounded-2xl p-6 min-h-[600px] flex flex-col justify-between" id="output_card">
+
+                <div id="placeholder_state" class="my-auto text-center py-20">
+                    <div class="w-16 h-16 rounded-2xl bg-slate-800/50 mx-auto flex items-center justify-center mb-4 border border-slate-700/50">
+                        <i data-lucide="calendar-days" class="w-8 h-8 text-slate-500"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-300">No Timetable Generated Yet</h4>
+                    <p class="text-xs text-slate-500 max-w-sm mx-auto mt-1">Fill in parameters or upload an Excel loadlist, then click synthesize.</p>
+                </div>
+
+                <!-- Generated Grid Container (Hidden by default) -->
+                <div id="result_state" class="hidden space-y-6">
+                    <div class="flex items-center justify-between flex-wrap gap-4 border-b border-slate-800 pb-4">
+                        <div>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-2">
+                                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Zero Clashes Satisfied
+                            </span>
+                            <h3 class="text-xl font-bold text-slate-100">Master Schedule Output</h3>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <button onclick="exportPDF()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold flex items-center gap-2 transition">
+                                <i data-lucide="download" class="w-4 h-4"></i> Download PDF
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Day Tabs -->
+                    <div class="flex gap-2 border-b border-slate-800 overflow-x-auto pb-2" id="day_tabs"></div>
+
+                    <!-- Dynamic Table Grid -->
+                    <div class="overflow-x-auto rounded-xl border border-slate-800" id="table_container"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="/static/js/app.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

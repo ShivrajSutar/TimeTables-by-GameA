@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #090d16;
+    color: #f8fafc;
+    overflow-x: hidden;
+}
+
+/* Vibrant Radial Gradients Background */
+.bg-vibrant {
+    background-image:
+        radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.25) 0px, transparent 50%),
+        radial-gradient(at 90% 20%, rgba(236, 72, 153, 0.2) 0px, transparent 50%),
+        radial-gradient(at 50% 80%, rgba(59, 130, 246, 0.18) 0px, transparent 50%);
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.glass-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+}
+
+/* Vibrant Gradient Text */
+.gradient-text {
+    background: linear-gradient(135deg, #a855f7 0%, #3b82f6 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-btn {
+    background: linear-gradient(135deg, #6366f1 0%, #d946ef 100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gradient-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(217, 70, 239, 0.35);
+}
+
+/* Timetable Styled Grid */
+.tt-grid-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.tt-grid-table th {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 14px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #1e293b;
+}
+
+.tt-grid-table td {
+    padding: 12px;
+    background: rgba(15, 23, 42, 0.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.session-badge {
+    background: rgba(59, 130, 246, 0.12);
+    border-left: 3px solid #3b82f6;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+}
+
+.break-badge {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 6px;
+    padding: 12px;
+}
